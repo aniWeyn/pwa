@@ -9,11 +9,11 @@
 // https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
 
 // fetch event
-// Cache then Network
+// Cache OR Network
 self.addEventListener('fetch', function (event) {
     console.log('fetch event', event);
     event.respondWith(
-        caches.match(event.request)
+        caches.match(event.request) // try to find entry for this request in CACHE API
         .then(function (cacheResponse) {
             // check cache then return result if not null
             // if so (|| equals OR) go on to network as normal
@@ -23,7 +23,7 @@ self.addEventListener('fetch', function (event) {
 });
 
 // fetch event
-// Cache then Network make and cache copy
+// Cache OR (Network AND make and cache copy)
 self.addEventListener('fetch', event => {
     //console.log('fetch event', event);
     event.respondWith(
@@ -46,7 +46,7 @@ self.addEventListener('fetch', event => {
 
 
 // fetch event
-// Cache then Network make and cache copy with generic fallback
+// Cache OR (Network make and cache copy OR generic fallback)
 // As Cache then Network and Store but if the network request fails
 // then CATCH the error and return the fallback page.
 self.addEventListener('fetch', event => {
@@ -82,62 +82,6 @@ self.addEventListener('fetch', event => {
 // https://www.w3schools.com/jsref/jsref_startswith.asp
 // https://www.w3schools.com/jsref/jsref_obj_regexp.asp
 
-
-self.addEventListener("fetch", event => {
-    const parsedUrl = new URL(event.request.url);
-
-    if (parsedUrl.host == "explorecalifornia.org" && !navigator.onLine) {
-        event.respondWith(fetch("offline.json"));
-    } else if (parsedUrl.pathname.match(/^\/_css*/)) {
-        // Network-first policy
-        // event.respondWith(
-        //     fetch(event.request)
-        //         .catch( error => {
-        //             return caches.match(event.request);
-        //         })
-        // )
-
-        // Stale while Revalidate
-        event.respondWith(
-            caches.match(event.request)
-            .then(response => {
-                const networkFetch = fetch(event.request)
-                    .then(networkResponse => {
-                        return caches.open("california-assets-v2")
-                            .then(cache => {
-                                cache.put(event.request, networkResponse.clone());
-                                return networkResponse
-                            })
-                    });
-                return response || networkFetch;
-            })
-        )
-    } else {
-        // Cache-first policy
-        event.respondWith(
-            caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response; // The URL is cached
-                } else {
-                    if (parsedUrl.pathname.match(/^\/_fonts*/)) {
-                        const fetchRequest =
-                            fetch(event.request).then(
-                                networkResponse => {
-                                    return caches.open("california-fonts")
-                                        .then(cache => {
-                                            cache.put(event.request, networkResponse.clone());
-                                            return networkResponse;
-                                        })
-                                }
-                            )
-                        return fetchRequest;
-                    } else {
-                        return fetch(event.request); // Go to the network
-                    }
-                }
-            })
-        );
-    }
-
-})
+// var str = "The best things in life are free";
+// var patt = new RegExp("e");
+// var res = patt.test(str);
