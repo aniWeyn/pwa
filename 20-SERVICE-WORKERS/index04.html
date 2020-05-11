@@ -1,0 +1,63 @@
+<!doctype html>
+<title>First Service Worker</title>
+
+<h1>Programatically update SW</h1>
+<p>Do this twice once in CONSOLE and once in APPLICATION:</p>
+<p>RUN - note instance number - then change SW by adding -2 </p>
+<p>Click UPDATE and new one loaded in and new instnace number.</p>
+<output></output>
+
+<button onclick="update()">Update Check</button>
+
+<script>
+function update() {
+    navigator.serviceWorker.getRegistration()
+        .then(registration => {
+            console.log("CLICKED UPDATE");
+            console.log(registration);
+            registration.update();
+            console.log("UPDATE DONE");
+        });
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("sw04.js",
+        { scope: "./" })
+        .then( registration => {
+            const scope = registration.scope;
+            document.querySelector("output").innerHTML = 
+                `Service Worker registered properly at ${scope}`;
+        })
+        .catch( error => {
+            document.querySelector("output").innerHTML = 
+                "Service Worker NOT registered";
+        });
+} else {
+    document.querySelector("output").innerHTML = 
+                "Service Worker NOT available";
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration()
+        .then( registration => {
+            registration.addEventListener("updatefound", event => {
+                console.log("EVENT - UPDATEFOUND");
+                const swInstalling = registration.installing;
+                swInstalling.addEventListener("statechange", () => {
+                    if (swInstalling.state=='installed') {
+                        document.querySelector("output").innerHTML = 
+                "A new Service Worker is installed and waiting";                        
+                    } else {
+                        document.querySelector("output").innerHTML = 
+                "A new Service Worker is now controlling the page...";
+                    }
+                });
+            });
+        })
+        .catch( error => {
+
+        });
+}
+
+
+</script>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <title>First Service Worker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <p>05 sending back a custom new Response on FETCH</p>
+    
+<output></output>
+
+
+<script>
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("sw05.js",
+        { scope: "./" })
+        .then( registration => {
+            const scope = registration.scope;
+            document.querySelector("output").innerHTML = 
+                `Service Worker registered properly at ${scope}`;
+        })
+        .catch( error => {
+            document.querySelector("output").innerHTML = 
+                "Service Worker NOT registered";
+        });
+} else {
+    document.querySelector("output").innerHTML = 
+                "Service Worker NOT available";
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration()
+        .then( registration => {
+            registration.addEventListener("updatefound", event => {
+                const swInstalling = registration.installing;
+                swInstalling.addEventListener("statechange", () => {
+                    if (swInstalling.state=='installed') {
+                        document.querySelector("output").innerHTML = 
+                "A new Service Worker is installed and waiting";                        
+                    } else {
+                        document.querySelector("output").innerHTML = 
+                "A new Service Worker is now controlling the page. <br> To view the new Response we need to reload page.";
+                    }
+                });
+            });
+        })
+        .catch( function(error) {
+            console.log(error);
+        });
+}
+
+
+</script>
+    
+</body>
+</html

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="wpPWA sample APP">
+  <meta name="Description" content="Author: Craig West">
+  <meta name="theme-color" content="#2196F3" />
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <title>42 FORM</title>
+  <link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a>
+      </span>
+    </div>
+  </nav>
+    <script src="../_js/localforage.min.js"></script>
+    <main>
+        <!-- !PAGE CONTENT! -->
+        <div class="w3-main" style="margin:auto;">
+            <div style="margin: 0 20px 0 20px;">
+                <br>
+                <div class="w3-card-4">
+                    <div style="padding:0 20px;">
+                        <h2>Contact Form</h2>
+                        <div id="status"></div>
+                        <!-- contact form -->
+                        <div class="contact-form">
+                            <style>
+                                input,
+                                textarea {
+                                    margin-bottom: 10px;
+                                    border: solid 2px #2196f3;
+                                    padding: 5px;
+                                    width: 100%;
+                                }
+                                input::placeholder,
+                                textarea::placeholder {
+                                    color: orange;
+                                    font-style: italic;
+                                }
+                            </style>
+                            <input type="text" id="name" name="name" placeholder="Your Name">
+                            <br>
+                            <input type="text" id="category" name="category" placeholder="Category">
+                            <br>
+                            <input type="text" id="subject" name="subject" placeholder="Subject">
+                            <br>
+                            <textarea id="message" name="message" rows="5" cols="20"
+                                placeholder="Message here"></textarea>
+                            <br>
+                            <button id="submit" class="w3-button w3-blue">Send</button>
+                            <div id="output" style="margin-top:20px;"></div>
+                            <div id="sw" style="border:2px solid orange;"></div>
+                        </div>
+                        <br>
+                        <p>
+                            As backgroundSync works immediately if there is connectivty, we can send form data vai
+                            backgroundSync
+                            and if online will be done immediately, other wise it will be done once connectivty occurs.
+                        </p><br>
+                        <p>
+                            We can thus test if Sync is available in browser and us it if so, otherwise send the form.
+                            If we detect offline, we can tell the user that they will need to send once back online.
+                        </p>
+                        <script src="../_js/localforage.min.js"></script>
+                        <script>
+                            const sw = document.getElementById('sw');
+                            sw.innerHTML = 'message from service worker goes here';
+
+                            // add an event listener for messge froim SW
+                            navigator.serviceWorker.addEventListener("message", function(event) {
+                                sw.innerHTML += event.data;
+                            })
+                            // form send event listener
+                            document.getElementById('submit').addEventListener('click', function (event) {
+                                event.preventDefault();
+                                console.log("event prevented");
+                                var formData = {
+                                    name: document.getElementById('name').value,
+                                    category: document.getElementById('category').value,
+                                    subject: document.getElementById('subject').value,
+                                    message: document.getElementById('message').value,
+                                };
+                                if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                                    console.log("SYNC MANAGER AVAILABLE");
+                                    // serviceWorker registered at top of page       
+                                    navigator.serviceWorker.ready.then(function (swRegistration) {
+                                        console.log("register sync SEND");
+                                        swRegistration.sync.register('SEND');
+                                        //check localforage loaded
+                                        //console.log('localforage is: ', localforage);
+                                        //load some data
+                                        console.log(
+                                            "Form has been saved as you are offline - will be sent once connectivty is restored"
+                                            )
+                                        localforage.setItem('FORM-DATA', formData).then(function (
+                                        value) {}).catch(function (err) {});
+                                        console.log("Email data stored...");
+                                        // if online it will be sent immediately by sync event    
+                                        if (!navigator.onLine) {
+                                            const output = document.getElementById('output');
+                                            output.innerHTML =
+                                                "FORM DATA SAVED AND WILL BE SENT WHEN BACK ONLINE";
+                                            output.style.border = '2px solid red';
+                                        } else {
+                                            const output = document.getElementById('output');
+                                            output.innerHTML =
+                                                "FORM DATA SENT (go to message sent page...)";
+                                            output.style.border = '2px solid green';
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br><br>
+    </main>
+    <footer>
+        <div class="w3-container w3-blue">
+            <h5>Footer</h5>
+            <p>Footer information goes here</p>
+            <br>
+        </div>
+    </footer>
+</body>
+</head>

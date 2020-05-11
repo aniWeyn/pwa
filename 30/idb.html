@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>30 IDB</title>
+
+
+</head>
+
+<body>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="idb.html">IDB</a>&nbsp; &nbsp;
+        <!-- <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a> -->
+      </span>
+    </div>
+  </nav>
+<main>
+  <div style="max-width:1200px;padding:10px;font-size:1.0rem;margin:0 auto;">
+    <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+    <div id="status"></div>
+    <br>
+    <h1>30 IDB EXAMPLE</h1>
+    <h2>Loading some JSON posts into a new DB and displaying them.</h2>
+    <div id="mainContent"></div>
+  </div>
+</main>
+<!-- POLYFILLS -->
+<script src="../_js/promise.js"></script>
+<script src="../_js/fetch.js"></script>
+<!-- Google Jake Archibald IndexedDB Promise library -->
+<script src="../_js/idb.js"></script>
+<!-- Custom IDB crud functions -->
+<script src="../_js/idb-fn.js"></script>
+
+<script>
+    const main = document.getElementById('mainContent');
+    main.innerHTML = "";
+    let wpURL = 'https://wpjs.co.uk/wpb/wp-json/wp/v2/posts?categories=24';
+    fetch(wpURL)
+    .then(function(response) {
+        console.log(response);    
+        return response.json();
+      }
+    )
+    .then(function(data) {
+        console.log("JSON DATA");
+        console.log(data);
+        let numberArticles = data.length;
+        let post;
+        let output = "";
+        console.log("number of Articles: " + numberArticles);
+      
+        for (let i = 0; i < numberArticles; i++) {
+          console.log(data[i].id);
+          post = {
+              id: data[i].id,
+              title: data[i].title.rendered,
+              body: data[i].content.rendered
+          };
+          output += "<h2>Article Number: " + data[i].id + "</h2><br>";
+          output += "<b>" + data[i].title.rendered + "</b><br>";
+          output += data[i].content.rendered + "<br><hr><br>";
+         
+          writeData("wpPOSTS", post);
+         
+        }
+        main.innerHTML = output;
+      }
+    );
+ 
+ </script><footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>

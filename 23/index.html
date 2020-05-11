@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>23 PWA</title>
+</head>
+<body>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="idon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <!-- <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a>
+      </span> -->
+    </div>
+  </nav>
+  <main>
+    <div class="w3-card-4" style="padding:30px;margin:20px auto;max-width:1000px">
+      <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+      <br><br>
+      <div class="status"></div>
+ 
+      <h1>23 Dynamic cache and  Fallback page</h1>
+      <p>We have added a method to <em>clone</em>clone response from network and place in DYNAMIC CACHE.</p>
+      <p>If the page is not in cache or available from the network then the CATCH error occurs. We can server up the FALLBACK page.</p>
+      <p>We have added .skipWaiting to programatically activate the new SW.</p>
+      <p>We can determine the nature of the request, (HTML, CSS, image etc) and then serve back various FALLBACK pages.</p>
+      <br>
+    </div>
+    </div>
+    </div>
+    <div style="height:40px;"></div>
+  </main>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+
+  
+  <script src="../_js/gone-offline.js"></script>
+</body>
+</html>

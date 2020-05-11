@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>24 PWA</title>
+</head>
+<body>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <!-- <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a> -->
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-card-4" style="padding:30px;margin:20px auto;max-width:1000px">
+      <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+      <br><br>
+      <div class="status"></div>
+      <h1>24 Purge old caches and limit dynamic cache size</h1>
+      <p>When we change version number of SW we create a new cache to keep ins sync.</p>
+      <p>The SW does not know what is the latest version and as it searches from start and will probably use older
+        caches.</p>
+      <p>We now purge old cache versions. This is best done in the ACTIVATE event as new caches can be formed in the
+        INSTALL event.</p>
+      <p>We also create a function to trim the number of entries in the dynamic cache to avoid any possible storage
+        issues.</p>
+      <div class="exercise">
+        <p>EX1: Change version number of SW. Notice how we get new and old caches.</p>
+        <p>Uncomment cache purge function and see how old caches are removed.</p>
+      </div>
+      <p>We also create a function to trim the number of entries in the dynamic cache to avoid any possible storage
+        issues.</p>
+      <div class="exercise">
+        <p>EX2 : uncomment limitCacheSize function and call and see how entries are removed to stay within the limit set. You can
+          load sample0X.html with X = 2,3,4 to load in new pages to the dynamic cache </p>
+      </div>
+      <br>
+    </div>
+    <div style="height:40px;"></div>
+  </main>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/gone-offline.js"></script>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>

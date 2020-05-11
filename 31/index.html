@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>31 HOME</title>
+
+
+</head>
+
+<body>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <!-- <a href="form.html">FORM</a> -->
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-main">
+     <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+        <div id="status"></div>
+        <br>
+
+      <div class="w3-card-4" style="margin:0 auto;max-width:1000px">
+        <div style="padding:30px;">
+          <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+          <br><br>
+          <h1>31 Dexie.js IndexedDB library</h1>
+          <p>We restructure our app so that all data is loaded into IndexedDB on the home page.</p>
+          <p>It enables us to do SQL, e.g. db.friends.where('name').startsWithIgnoreCase('da').or('shoeSize').below(40)</p>
+          <p>We have the same code for our posts and we have used dexie.js for the contacts obtained from randomuser.me api.</p>
+          <p><a href="https://dexie.org/" target="_new">Dexie.js</a></p>
+          <p><a href="https://golb.hplar.ch/2018/01/IndexedDB-programming-with-Dexie-js.html" target="_blank">Excellent article on how to use Dexie.js</a></p>
+          <br>
+        </div>
+      </div>
+      <div style="height:40px;"></div>
+    </div>
+  </main>
+  <!-- POLYFILLS FOR PROMISES AND FETCCH -->
+  <script src="../_js/promise.js"></script>
+  <script src="../_js/fetch.js"></script>
+  <!-- IndexedDB LIBRARY -->
+  <script src="../_js/idb.js"></script>
+  <!-- IndexedDB UTILITY FUNCTIONS -->
+  <script src="../_js/idb-fn.js"></script>
+ 
+ 
+  <!-- We now load KB, Contacts and Calendar so that user has all these on first page visit.
+This is for demo purposes but it means the device is now completely local and can 
+function fully off line. -->
+  <!-- LOAD KB -->
+  <script>
+    // We can check if IDB has been set up...
+    storeExists("wpPOSTS")
+    .then(function(exists) {
+      console.log("wpPOSTS exists?" , exists);
+    })
+    // Load data
+    const wpURL = "https://wpjs.co.uk/wpb/wp-json/wp/v2/posts?categories=24";
+    //const wpURL = "https://wpjs.co.uk/wpb/wp-json/wp/v2/posts";
+    fetch(wpURL)
+      .then(function (response) {
+        //console.log(response);
+        return response.json();
+      })
+      .then(function (data) {
+        //console.log("JSON DATA");
+        //console.log(data);
+        var numberArticles = data.length;
+        var post;
+        console.log("number of Articles: " + numberArticles);
+        for (var i = 0; i < data.length; i++) {
+          //console.log(data[i].id);
+          post = {
+            id: data[i].id,
+            title: data[i].title.rendered,
+            body: data[i].content.rendered
+          };
+          //console.log(post);
+          writeData("wpPOSTS", post);
+        }
+      });
+  </script>
+  <!-- LOAD CONTACTS   -->
+  <script src="../_js/dexie.js"></script>
+  <script>
+    //
+    // Define your database
+    //
+    var db = new Dexie("wpCONTACTS");
+    db.version(1).stores({
+      contacts: 'firstName,lastName,telMob,email'
+    });
+    // calendar is loaded in localforage script but this is for demo
+    db.version(1).stores({
+      events: 'eventDate,eventTime,eventName'
+    });
+    // Load calendar
+    var objEvent = {
+      eventDate: "2020-11-11",
+      eventTime: "11:30",
+      eventName: "Monthly Meeting"
+    }
+    db.events.put(objEvent);
+    objEvent = {
+      eventDate: "2020-09-01",
+      eventTime: "14:30",
+      eventName: "Team Meeting"
+    }
+    db.events.put(objEvent);
+    objEvent = {
+      eventDate: "2020-09-01",
+      eventTime: "14:30",
+      eventName: "Team Meeting"
+    }
+    db.events.put(objEvent);
+    // load contacts
+    fetch('https://randomuser.me/api/?results=50')
+      .then(function (response) {
+        //console.log(response)
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data.results);
+        var objData = {};
+        for (var i = 0; i < data.results.length; i++) {
+          objData = {
+            firstName: data.results[i].name.first,
+            lastName: data.results[i].name.last,
+            telMob: data.results[i].phone,
+            email: data.results[i].email
+          }
+          //console.log(objData);
+          db.contacts.put(objData)
+        }
+        console.log("+++++++ Contacts by firstName ++++++++ ");
+      })
+      .then(() => {
+        //Iterate all friends, ordered by age:
+        let output = "";
+        db.contacts.orderBy('firstName').each(contacts => {
+          //console.log(contacts.firstName + " - " + contacts.telMob);
+          output += contacts.firstName + " " + contacts.lastName + "<br>";
+          output += contacts.telMob + "<br>";
+          output += contacts.email + "<br><hr>";
+          //document.getElementById("mainContent").innerHTML =  output;
+        });
+        console.log("+++++++ Contacts by firstName ++++++++ ");
+        console.log(output);
+      })
+      .catch(function (error) {
+        alert("Ooops: " + error);
+      });
+  </script>
+  
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <title>F01</title>
+</head>
+<body>
+
+<h1>Service Worker Test</h1>
+<p>
+    <output></output>
+</p>
+<button onclick="unregister()">Unregister</button>
+
+<script>
+
+function unregister() {
+    navigator.serviceWorker.getRegistration()
+        .then(registration => {
+            registration.unregister();
+        });
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("./serviceworker.js",
+        { scope: "./" })
+        .then( registration => {
+            const scope = registration.scope;
+            document.querySelector("output").innerHTML = 
+                `Service Worker registered properly at ${scope}`;
+        })
+        .catch( error => {
+            document.querySelector("output").innerHTML = 
+                "Service Worker NOT registered";
+        });
+} else {
+    document.querySelector("output").innerHTML = 
+                "Service Worker NOT available";
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration()
+        .then( registration => {
+            registration.addEventListener("updatefound", event => {
+                const swInstalling = registration.installing;
+                swInstalling.addEventListener("statechange", () => {
+                   
+                    if (swInstalling.state=='installed') {
+                        document.querySelector("output").innerHTML = 
+                        "A new Service Worker is installed and waiting";                        
+                    } else {
+                        document.querySelector("output").innerHTML = 
+                        "A new Service Worker is now controlling the page";
+                    }
+                });
+            });
+        })
+        .catch( error => {
+
+        });
+}
+
+
+</script>
+</body>
+</html>

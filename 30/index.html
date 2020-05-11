@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>30 PWA</title>
+</head>
+<body>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="idb.html">IDB</a>&nbsp; &nbsp;
+        <!-- <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a> -->
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-card-4" style="padding:30px;margin:20px auto;max-width:1000px">
+      <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+      <div id="status"></div>
+      <br>
+      <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+      <br><br>
+      <h1>30 IndexedDBs</h1>
+      <p>We look at how we can use the broswer's own database, IndexedDB, to store many types of data.</p>
+      <p>Combined with a template page, we can create dynamic pages whilst offline with almost instant speed.</p>
+      <p>We have cached idb.html but until it is loaded, the IndexedDB load will not have been fired. Going to idb.html
+        for the first time and offline will render the page but not the posts.</p>
+      <p>In the next lesson, we preload all IndexedDB data on home page.</p>
+      <br>
+    </div>
+    <div style="height:40px;"></div>
+  </main>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>

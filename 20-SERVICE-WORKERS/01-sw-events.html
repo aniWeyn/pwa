@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <title>01</title>
+</head>
+<body>
+    
+<h1>Service Worker Test</h1>
+<output></output>
+<p>Run - refresh and see that nothing happens because the INSTALL event happens just once. The ACTIVATE event is only fired if at least one byte in SW changes.</p>
+<p>Change events with - 2 at end for INSTALL and -3 for ACTIVATE.</p>
+<p>We see install - 2 and a new instance of SW.</p>
+<p>skipWaiting fired and we get activate - 3.</p>
+
+<script>
+    // checks browser supports SW
+    // We can do once DOM has been loaded
+   
+    // document.addEventListener("DOMContentLoaded", function {
+    
+    // });
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("sw01.js",
+        { scope: "./" })
+        // scope: we don't need to add this.
+        // We place JS in root of folder we want it to have dominion over
+        // not in our usual JS folder
+        .then( function(registration) {
+            console.log(registration)
+            document.querySelector("output").innerHTML = 
+                "<p>Service Worker registered properly</p>";
+        })
+        .catch( function(error) {
+            document.querySelector("output").innerHTML = 
+                "<p>Service Worker NOT registered</p>";
+        });
+} else {
+    document.querySelector("output").innerHTML = 
+                "<p>Service Worker NOT available</p>";
+}
+</script>
+</body>
+</html>

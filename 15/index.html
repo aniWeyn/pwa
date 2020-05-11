@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- colour of status bar -->
+  <meta name="theme-color" content="#2196f3" />
+  <!-- Apple -->
+  <meta name="apple-mobile-web-app-title" content="wpPWA">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-startup-image" href="../_images/wppwa.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="images-manifest/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../_images-manifest/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../_images-manifest/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../_images-manifest/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../_images-manifest/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../_images-manifest/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../_images-manifest/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../_images-manifest/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="../_images-manifest/icon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="../_images-manifest/icon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="../_images-manifest/icon-144x144.png" sizes="144x144">
+  <link rel="icon" type="image/png" href="../_images-manifest/icon-128.png" sizes="128x128">
+  <!-- MicroSoft -->
+  <meta name="msapplication-TileColor" content="#2D91F8">
+  <meta name="msapplication-TileImage" content="../_images-manifest/icons/ms-icon-144x144.png">
+  <meta name="msapplication-square70x70logo" content="../_images-manifest/icons/ms-icon-70x70.png">
+  <meta name="msapplication-square150x150logo" content="../_images-manifest/icons/ms-icon-150x150.png">
+  <meta name="msapplication-square310x310logo" content="../_images-manifest/icons/ms-icon-310x310.png">
+  <title>15 PWA</title>
+</head>
+<body>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a>
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-card-4" style="padding:30px;margin:20px auto;max-width:1000px">
+      <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+      <!-- if broswer uses Blink engine like Google then App banner available
+        meeds 192 x 192 icon but check link in handbook for latest requirements as the
+        vary with time. -->
+      <h2>15 "ADD TO HOMESCREEN" button</h2>
+      <p>Users may not know about the URL bar to install a PWA so we can add a user friendly button to add to app to
+        homescreen.</p>
+      <p>This concludes the UI section of the course.</p>
+      <p>Clients may be happy with just the look of a Native App and the Add To Homescreen facility when they ask if yone can create an APP.</p>
+      <p></p>
+      <br>
+    </div>
+    <div style="height:40px;"></div>
+  </main>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>

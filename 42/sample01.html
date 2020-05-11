@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+
+<meta name="Description" content="wpPWA sample APP">
+<meta name="Description" content="Author: Craig West">
+
+<meta name="theme-color" content="#2196F3"/>
+<link type="text/css" href="./css/w3.css" rel="stylesheet">
+<link type="text/css" href="./css/pwa-course.css" rel="stylesheet">
+
+<link rel="manifest" href="manifest.json">
+    <title>SAMPLE 01</title>
+    <meta name="viewport" content="width=device-width"/>
+    <style>
+        body{
+            background: hsl(66, 64%, 79%);
+        }
+        h1{
+          text-align: center;  
+        }
+        p.img{
+            min-height: 310px;
+            max-width: 600px;
+            margin: 1rem auto;
+            text-align: center;
+            font-size: 3rem;
+            color: #FFF;
+            text-shadow: 2px 2px 2px #333;
+            padding-top:3rem;
+            background-image: url('images/avatar1.png');
+            background-color: #999;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .img.online{
+            background-image: url('images/avatar1.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="w3-container w3-blue" style="padding:5px;text-align:center;">
+        <img src="images/wppwa.png" style="width:20px;height:20px;">
+        <span style="margin-left:10px;">
+            <a href="index.php">HOME</a>&nbsp;&nbsp;<a href="articles.php">POSTS</a>&nbsp; &nbsp;
+            <a href="contacts.php">CONTACTS</a>&nbsp; &nbsp;<a href="form-contact.php">FORM</a>
+        </span>
+    </div>
+    <h1>SAMPLE 01</h1>
+    <h1>You are currently <span id="status">UNKNOWN</span></h1>
+    <p>&nbsp;</p>
+    <p class="img" ></p>
+    
+    <script>
+        window.addEventListener('online',  changeStatus);
+        window.addEventListener('offline', changeStatus);
+        
+        document.addEventListener('DOMContentLoaded', function(){
+           //check for the original starting status
+            if( navigator.onLine && navigator.onLine == true ){
+                changeStatus( {type:'online'} );
+            }else{
+                changeStatus( {type:'offline'} );
+            }
+        });
+        
+        function changeStatus(ev){
+            //handle the change in status   ev.type online  offline
+            document.getElementById("status").textContent = ev.type.toUpperCase();
+            let img = document.createElement("img");
+            img.src = "images/avatar1.png";
+            let p = document.querySelector('p.img');
+            p.className = "img";
+            if( ev.type == "online"){
+                p.classList.add('online');
+            }
+            p.textContent = "STATUS IS ".concat(ev.type.toUpperCase() );
+        }
+    </script>
+</body>
+</html>

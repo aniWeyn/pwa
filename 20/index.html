@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+   <!-- cross browser omitted for intermiary lessons -->
+  <title>20 PWA</title>
+</head>
+<body>
+  <!-- REGISTER SERVICE WORKER -->
+  <!-- This file registers a SW in root of folder - sw.js
+  Does not need to be done this way but is for this course -->
+  <script src="../_js/register-sw.js">
+  </script>
+
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <!-- <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a> -->
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-card-4" style="padding:30px;margin:20px auto;max-width:1000px">
+      <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
+      <div>
+        <br><br>
+        <p>
+          20 Demonstrate skipWaiting and when REGISTER/INSTALL/ACTIVATE are fired.
+        </p>
+        <p>
+          We have a very basic SW that just console.logs INSTALL and ACTIVATE. It also console.logs the FETCH event with
+          the URL requested.
+        </p>
+        <p>Refresh the page to see the FETCH in console.log</p>
+        <p>Lets comment out the FETCH console.logs</p>
+        <p>If we change one byte of a SW then the browser knows a new version exists and will install it.</p>
+        <p><em> We see nothing changes. Why?</em></p>
+        <p>As a tab is currently being controlled by the old SW, by default the new SW is installed but kept in
+          waiting until all tabs with old SW are terminated.</p>
+        <p>If we look at DEV TOOLS >APPLICATION > Service Worker, we can see this.</p>
+        <p>We can either click skipWaiting or when developing tick the UPDATE ON RELOAD.</p>
+        <p>Once we click skipWaiting it will be activated, console log will show this and the new SW will operate.
+        </p>
+        <p>Users won't know about this so there are ways to do it programatically. We look at this later. For now, we
+          can understand the lifecycles of SW.
+        </p>
+      </div>
+    </div>
+    <div style="height:40px;"></div>
+  </main>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <script src="../_js/deferrred-prompt.js"></script>
+</body>
+</html>
