@@ -15,7 +15,6 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
 
-
   console.log("-------------------------");
   console.log(`Fetching ${event.request.url}`);
   // ANALYSE REQUEST AND RESPOND WITH A CACHING STRATEGY

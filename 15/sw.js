@@ -4,7 +4,7 @@
 // only reinstalled if sw has changed - goes to in waiting till all tabs closed or forced to install.
 
 self.addEventListener('install', function (event) {
-  console.log('[SW] Service worker V installed.');
+  console.log('[SW] Service worker installed.');
 });
 
 // activate event - only occurs after installation so page refresh just re-registers page unles sw file has changed.

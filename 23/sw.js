@@ -22,7 +22,9 @@ var localAssets = [
   './fallback.html',
   '../_images/wppwa.png',
   '../_css/w3.css',
-  '../_css/pwa-course.css'
+  '../_css/pwa-course.css',
+  '../_js/style-offline.js',
+  '../_js/gone-offline.js'
 
 
   // if you mistype or call a file not available, they all fail to load as it is a promise and transaction based.

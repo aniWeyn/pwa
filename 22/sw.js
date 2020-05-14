@@ -52,7 +52,7 @@ self.addEventListener('activate', function (event) {
 
 });
 
-// Cache then Network
+// Cache OR Network "Cache then Network"
 self.addEventListener('fetch', function (event) {
   //console.log(`Fetching ${event.request.url}`);
   event.respondWith(

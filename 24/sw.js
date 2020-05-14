@@ -59,17 +59,17 @@ self.addEventListener('install', function (event) {
 	);
 });
 
-// // limit number of entries in a cache
-// const limitCacheSize = (name, size) => {
-// 	caches.open(name).then(cache => {
-// 		cache.keys().then(keys => {
-// 			if (keys.length > size) {
-// 				//delete oldest (first) entry
-// 				cache.delete(keys[0]).then(limitCacheSize(name, size));
-// 			}
-// 		})
-// 	})
-// };
+// limit number of entries in a cache
+const limitCacheSize = (name, size) => {
+	caches.open(name).then(cache => {
+		cache.keys().then(keys => {
+			if (keys.length > size) {
+				//delete oldest (first) entry
+				cache.delete(keys[0]).then(limitCacheSize(name, size));
+			}
+		})
+	})
+};
 
 self.addEventListener('activate', function (event) {
 	console.log('+++ service worker activation +++');
@@ -121,7 +121,7 @@ self.addEventListener('fetch', function (event) {
 								// and can only be consumed once so we make a clone/copy.
 
 								// ++++++++ limit Cache Size ++++++++++
-								//limitCacheSize(dynamicCacheName, 9);
+								limitCacheSize(dynamicCacheName, 4);
 								// ++++++++++++++++++++++++++++++++++++
 								return networkResponse;
 							});
