@@ -101,6 +101,7 @@ function fully off line. -->
       });
   </script>
   <!-- LOAD CONTACTS   -->
+  <!-- https://dexie.org/ -->
   <script src="../_js/dexie.js"></script>
   <script>
     //
@@ -110,7 +111,7 @@ function fully off line. -->
     db.version(1).stores({
       contacts: 'firstName,lastName,telMob,email'
     });
-    // calendar is loaded in localforage script but this is for demo
+
     db.version(1).stores({
       events: 'eventDate,eventTime,eventName'
     });

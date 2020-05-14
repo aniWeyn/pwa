@@ -29,7 +29,7 @@ function writeData(table, data) {
       var tx = db.transaction(table, 'readwrite');
       var dbTable = tx.objectStore(table);
       dbTable.put(data);
-      return tx.complete;
+      return tx.complete; // property not method
     });
 }
 
