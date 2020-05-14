@@ -172,7 +172,7 @@ self.addEventListener('sync', function (event) {
     self.clients.matchAll()
       .then(
         function (clients) {
-          let msg = '.....[SW] !!! - postMessage from SW...form sent'
+          let msg = ' [SW PostMessag API].....!!! - postMessage from SW...form sent'
           clients.forEach(function (client) {
             console.log("[SW] sending message to PAGE " + msg);
             console.log(client);

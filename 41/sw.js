@@ -141,11 +141,10 @@ self.addEventListener('fetch', function (event) {
 });
 //+++++ BACKGROUND SYNC +++++
 // This is for BackgroundSync where we store form data from CONTACT page, for example,
-// that is then sent when back online.
-// If we are online then this will run immediately.
+// that is then sent immediately if ONLINE or when BACK ONLINE.
+
 self.addEventListener('sync', function (event) {
   if (event.tag == 'SEND') {
-
 
     console.log("===== in serviceWorker =====");
     console.log(event);
