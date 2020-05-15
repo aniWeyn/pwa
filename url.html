@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using the URL object</title>
+    <style>
+      figure img {
+        max-width: 300px;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+       <p>Courtesy Steve Griffith https://www.youtube.com/watch?v=b867xRQkjVA</p>
+      <figure>
+        <a
+          id="link"
+          target="_blank"
+          href="https://www.chapters.indigo.ca/en-ca/books/eloquent-javascript-3rd-edition-a/9781593279509-item.html?ikwid=javascript&ikwsec=Home&ikwidx=2#algoliaQueryId=4785bd9cc48044fde8a175fbd47afe21"
+          ><img src="/_images/avatar1.png" alt="book cover" />
+          <figcaption>An image</figcaption>
+        </a>
+        
+      </figure>
+    </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let a = document.getElementById('link');
+        let img = a.querySelector('img');
+        let aHref = a.href;
+        let imgHref = img.src;
+        console.log(typeof aHref, aHref);
+        console.log(typeof imgHref, imgHref);
+
+        let aURL = new URL(aHref);
+        // let iURL = new URL(imgHref);
+        console.log(aURL);
+        // console.log(iURL);
+
+        aURL.searchParams.forEach((val, name) => {
+          console.log(name, '::', val);
+        });
+
+        let val = aURL.searchParams.get('ikwid');
+        console.log("ikwid = " + val);
+      });
+
+      /*
+      URL properties
+      hash - The part that starts with `#` and refers to an id
+      host - Same as hostname except a specified port would be included
+      hostname - the domain part without the http://
+      href - the full url. Same as using .toString() method
+      origin - Same as host prefixed with the protocol
+      password - https://username:password@www.example.com
+      pathname - after the domain. Folder and file name
+      port - :80  :443
+      protocol - http or https usually
+      search - Begins with `?`. The query string
+      searchParams - An object built from the parsed query string
+      username - https://username:password@www.example.com
+      */
+    </script>
+  </body>
+</html>
