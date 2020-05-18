@@ -9,6 +9,7 @@ function requestNotificationPermission() {
             console.log('notification permission granted! :)');
             // disable button to prevent user clicking it.
             btn.disabled = true;
+            btn.innerHTML = 'NOTIFICATIONS ENABLED';
         }
         if (result == 'denied') {
             console.log('notification permission DENIED!');
