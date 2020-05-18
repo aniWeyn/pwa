@@ -12,7 +12,7 @@ function requestNotificationPermission() {
         }
         if (result == 'denied') {
             console.log('notification permission DENIED!');
-            btn.disabled = true;
+            btn.disabled = false;
         }
     });
 }
