@@ -1,6 +1,22 @@
 const btn = document.getElementById('notifications');
 btn.addEventListener('click', requestNotificationPermission);
 
+function requestNotificationPermission() {
+    const btn = document.getElementById('notifications');
+    Notification.requestPermission(function (result) { //default
+        if (result == 'granted') {
+            displayConfirmNotification();
+            console.log('notification permission granted! :)');
+            // disable button to prevent user clicking it.
+            btn.disabled = true;
+        }
+        if (result == 'denied') {
+            console.log('notification permission DENIED!');
+            btn.disabled = true;
+        }
+    });
+}
+
 function displayConfirmNotification() {
     if ('serviceWorker' in navigator) {
         var options = {
@@ -17,20 +33,4 @@ function displayConfirmNotification() {
                 swreg.showNotification('Successfully subscribed (from SW)!', options);
             });
     }
-}
-
-function requestNotificationPermission() {
-    const btn = document.getElementById('notifications');
-    Notification.requestPermission(function (result) { //default
-        if (result == 'granted') {
-            displayConfirmNotification();
-            console.log('notification permission granted! :)');
-            // disable button to prevent user clicking it.
-            btn.disabled = true;
-        }
-        if (result == 'denied') {
-            console.log('notification permission DENIED!');
-            btn.disabled = true;
-        }
-    });
 }
