@@ -59,8 +59,8 @@ self.addEventListener('install', function (event) {
 	);
 });
 
-// limit number of entries in a cache
-const limitCacheSize = (name, size) => {
+// limit number of entries (size) in a cache
+const limitCacheSize = (name, size) => { //!size is number of entries not file size
 	caches.open(name).then(cache => {
 		cache.keys().then(keys => {
 			if (keys.length > size) {
