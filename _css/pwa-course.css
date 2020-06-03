@@ -6,6 +6,11 @@ body {
     font-size: 18px;
 }
 
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
 a,
 a:hover,
 a:focus,
@@ -65,4 +70,13 @@ li {
     border: 2px solid #2196f3;
     padding: 10px;
     margin-bottom: 5px;
+}
+
+.card {
+    border: 2px solid orange;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 400px;
+    font-weight: bold;
 }

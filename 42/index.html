@@ -175,20 +175,7 @@
           //console.log(objData);
           dbDexie.contacts.put(objData)
         }
-        console.log("+++++++ Contacts by firstName ++++++++ ");
-      })
-      .then(() => {
-        //Iterate all friends, ordered by age:
-        let output = "";
-        db.contacts.orderBy('firstName').each(contacts => {
-          //console.log(contacts.firstName + " - " + contacts.telMob);
-          output += contacts.firstName + " " + contacts.lastName + "<br>";
-          output += contacts.telMob + "<br>";
-          output += contacts.email + "<br><hr>";
-          //document.getElementById("mainContent").innerHTML =  output;
-        });
-        console.log("+++++++ Contacts by firstName ++++++++ ");
-        console.log(output);
+       
       })
       .catch(function (error) {
         console.log("Ooops: " + error);
