@@ -105,11 +105,8 @@ self.addEventListener('fetch', function (event) {
       //console.log("Paresed URL: ", parsedUrl);
       const pathname = parsedUrl.pathname;
       console.log(pathname);
-      const regEx = /png/;
-      if (pathname.includes('.js')) {
-        console.log("JS file => cache strategy JS")
-      }
-      // FALLBACK
+
+      // FALLBACK PAGE
       if (pathname.indexOf('.html') > -1) {
         console.log("         ");
         console.log("         ");
@@ -125,11 +122,6 @@ self.addEventListener('fetch', function (event) {
         console.log("         ");
         return caches.match(FALLBACK_PAGE);
       }
-      if (parsedUrl.pathname.match(regEx)) {
-        console.log("PNG file => cache strategy IMG")
-      }
-
-
     })
   );
 });

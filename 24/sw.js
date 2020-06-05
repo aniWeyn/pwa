@@ -127,12 +127,30 @@ self.addEventListener('fetch', function (event) {
 							});
 					});
 			}
-		})
-		.catch(function () { // catch occurs if failure occurs
-			console.log("CATCH");
-			// If both fail, show a generic fallback:
-			if (event.request.headers.get('accept').includes('text/html')) {
-				console.log("Caching strategy FALLBACK HMTL");
+		}).catch(function () {
+			// catch occurs if failure occurs
+			// If both fail, show a generic fallback for html pages in this example:
+
+			// ANALYSE REQUEST AND RESPOND WITH A CACHING STRATEGY
+			const parsedUrl = new URL(event.request.url);
+			//console.log("Paresed URL: ", parsedUrl);
+			const pathname = parsedUrl.pathname;
+			console.log(pathname);
+
+			// FALLBACK PAGE
+			if (pathname.indexOf('.html') > -1) {
+				console.log("         ");
+				console.log("         ");
+				console.log("!!!!!!!!!!!!!");
+				console.log("PATHNAME " + pathname);
+				console.log("         ");
+				console.log("HTML file => cache strategy HTML");
+				console.log("         ");
+				console.log("USE FALLBACK_PAGE");
+				console.log("         ");
+				console.log("!!!!!!!!!!!!!");
+				console.log("         ");
+				console.log("         ");
 				return caches.match(FALLBACK_PAGE);
 			}
 		})
