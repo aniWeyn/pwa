@@ -51,6 +51,7 @@ var remoteAssets = [
 // only reinstalled if sw has changed - goes to in waiting till all tabs closed or forced to install.
 self.addEventListener('install', function (event) {
   console.log('[SW] Service worker ' + version + ' installed.');
+
   event.waitUntil( // waits until all done before install event is deemed to have finished
     caches.open(staticLocalCacheName).then(function (cache) {
       //console.log('+++ caching APP SHELL assets +++');
@@ -81,6 +82,22 @@ const limitCacheSize = (name, size) => {
     })
   })
 };
+
+
+function sendMessage(msg) {
+  console.log("FN sendMessage");
+  self.clients.matchAll()
+    .then(
+      function (clients) {
+        clients.forEach(function (client) {
+          console.log("[SW] sending message to PAGE " + msg);
+          console.log("CLIENT " + client);
+          client.postMessage(msg);
+        })
+      }
+    )
+}
+
 self.addEventListener('activate', function (event) {
   console.log('+++ service worker activation +++');
   console.log('[Service Worker] Activating Service Worker  ' + version + ' ....', event);
@@ -104,6 +121,7 @@ self.addEventListener('activate', function (event) {
 
 //cacheThenNetworkAndStoreThenFallback
 self.addEventListener('fetch', function (event) {
+
   //console.log(event);
   event.respondWith(
     caches.match(event.request, {
@@ -124,7 +142,7 @@ self.addEventListener('fetch', function (event) {
                 cache.put(event.request.url, networkResponse.clone());
                 // response is a stream
                 // and can only be consumed once so we make a clone/copy.
-
+                // sendMessage('NEW RESOURCE AVAIALBLE');
                 // ++++++++ limit Cache Size ++++++++++
                 // limitCacheSize(dynamicCacheName, 5);
                 // ++++++++++++++++++++++++++++++++++++
@@ -169,17 +187,17 @@ self.addEventListener('sync', function (event) {
     self.registration.showNotification(title, options);
     // this also works: registration.showNotification(title, options);
 
-    self.clients.matchAll()
-      .then(
-        function (clients) {
-          let msg = ' [SW PostMessag API].....!!! - postMessage from SW...form sent'
-          clients.forEach(function (client) {
-            console.log("[SW] sending message to PAGE " + msg);
-            console.log(client);
-            client.postMessage(msg);
-          })
-        }
-      )
-
+    // self.clients.matchAll()
+    //   .then(
+    //     function (clients) {
+    //       let msg = ' [SW PostMessag API].....!!! - postMessage from SW...form sent'
+    //       clients.forEach(function (client) {
+    //         console.log("[SW] sending message to PAGE " + msg);
+    //         console.log(client);
+    //         client.postMessage(msg);
+    //       })
+    //     }
+    //   )
+    sendMessage('-----------------------FORM SENT...');
   }
 });

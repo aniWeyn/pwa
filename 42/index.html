@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
@@ -8,7 +9,7 @@
   <link type="text/css" href="../_css/w3.css" rel="stylesheet">
   <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
   <link rel="manifest" href="./manifest.json">
-  <link rel="canonical" href="https://wp-html.co.uk/courses/pwa/42"/>
+  <link rel="canonical" href="https://wp-html.co.uk/courses/pwa/42" />
   <!-- colour of status bar -->
   <meta name="theme-color" content="#2196f3" />
   <!-- Apple -->
@@ -58,7 +59,7 @@
   </nav>
   <main>
     <div class="w3-main">
-     <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+      <!-- DISPLAY ONLINE/OFFLINE STATUS -->
       <header class="w3-container">
         <div id="status"></div>
         <br>
@@ -73,12 +74,19 @@
           <h3>42 FORM SYNC</h3>
           <p>We now have a message that is sent from SW to page if tab is open.</p>
           <p>We will look at messaging to and from SW in lesson 50.</p>
-
+          <div id="messages"></div>
           <div id="usage"></div>
         </div>
       </div>
       <div style="height:40px;"></div>
     </div>
+    <script>
+      navigator.serviceWorker.addEventListener("message", function (event) {
+        //alert(event.data);
+        document.getElementById('messages').innerHTML = event.data;
+      })
+    </script>
+
   </main>
   <!-- POLYFILLS FOR PROMISES AND FETCCH -->
   <script src="../_js/promise.js"></script>
@@ -103,7 +111,7 @@
     fetch(wpURL)
       .then(function (response) {
         console.log(response);
-      
+
         return response.json();
       })
       .then(function (data) {
@@ -176,7 +184,7 @@
           //console.log(objData);
           dbDexie.contacts.put(objData)
         }
-       
+
       })
       .catch(function (error) {
         console.log("Ooops: " + error);
@@ -209,4 +217,5 @@
   </footer>
 
 </body>
+
 </html>
