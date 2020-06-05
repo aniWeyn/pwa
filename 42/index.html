@@ -70,10 +70,8 @@
             <button id="notifications" class="w3-button w3-blue w3-medium">ENABLE NOTIFICATIONS</button>
             <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
           </div>
-
           <h3>42 FORM SYNC</h3>
           <p>We now have a message that is sent from SW to page if tab is open.</p>
-          <p>We will look at messaging to and from SW in lesson 50.</p>
           <div id="messages"></div>
           <div id="usage"></div>
         </div>
@@ -86,8 +84,16 @@
         document.getElementById('messages').innerHTML = event.data;
       })
     </script>
-
   </main>
+  <script>
+    function sendMessageToSW(message) {
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage(message);
+      } else {
+        console.log("!!!!There is no SW controlling this page");
+      }
+    }
+  </script>
   <!-- POLYFILLS FOR PROMISES AND FETCCH -->
   <script src="../_js/promise.js"></script>
   <script src="../_js/fetch.js"></script>
@@ -99,19 +105,18 @@
   <script src="../_js/request-notifications-permission.js"></script>
   <!-- CAPTURE ADD TO HOMESCREEN EVENT -->
   <script src="../_js/deferrred-prompt.js"></script>
-
   <!-- We now load KB, Contacts and Calendar so that user has all these on first page visit.
     This is for demo purposes but it means the device is now completely local and can 
     function fully off line. 
   -->
   <!-- LOAD POSTS -->
   <script>
+    
     var wpURL = "https://wpjs.co.uk/wpb/wp-json/wp/v2/posts?categories=24";
     //var wpURL = "https://wpjs.co.uk/wpb/wp-json/wp/v2/posts";
     fetch(wpURL)
       .then(function (response) {
         console.log(response);
-
         return response.json();
       })
       .then(function (data) {
@@ -131,6 +136,7 @@
           writeData("wpPOSTS", post);
         }
       });
+    sendMessageToSW("!!!Page says DB loaded now...");
   </script>
   <!-- LOAD CONTACTS   -->
   <script src="../_js/dexie.js"></script>
@@ -184,7 +190,6 @@
           //console.log(objData);
           dbDexie.contacts.put(objData)
         }
-
       })
       .catch(function (error) {
         console.log("Ooops: " + error);
@@ -215,7 +220,6 @@
       <p>PWA WORKSHOP - &copy; Craig West 2020</p>
     </div>
   </footer>
-
 </body>
 
 </html>
