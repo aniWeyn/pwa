@@ -96,12 +96,40 @@ self.addEventListener('fetch', function (event) {
           });
       }
     })
-    .catch(function () { // catch occurs if failure occurs
+    .catch(function () {
+      // catch occurs if failure occurs
       // If both fail, show a generic fallback for html pages in this example:
-      console.log("[CATCH] " + event.request.url);
-      if (event.request.url.indexOf('.html') > -1) {
+
+      // ANALYSE REQUEST AND RESPOND WITH A CACHING STRATEGY
+      const parsedUrl = new URL(event.request.url);
+      //console.log("Paresed URL: ", parsedUrl);
+      const pathname = parsedUrl.pathname;
+      console.log(pathname);
+      const regEx = /png/;
+      if (pathname.includes('.js')) {
+        console.log("JS file => cache strategy JS")
+      }
+      // FALLBACK
+      if (pathname.indexOf('.html') > -1) {
+        console.log("         ");
+        console.log("         ");
+        console.log("!!!!!!!!!!!!!");
+        console.log("PATHNAME " + pathname);
+        console.log("         ");
+        console.log("HTML file => cache strategy HTML");
+        console.log("         ");
+        console.log("USE FALLBACK_PAGE");
+        console.log("         ");
+        console.log("!!!!!!!!!!!!!");
+        console.log("         ");
+        console.log("         ");
         return caches.match(FALLBACK_PAGE);
       }
+      if (parsedUrl.pathname.match(regEx)) {
+        console.log("PNG file => cache strategy IMG")
+      }
+
+
     })
   );
 });
