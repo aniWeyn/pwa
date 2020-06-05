@@ -123,7 +123,8 @@ self.addEventListener('fetch', function (event) {
         console.log("         ");
         if (pathname.indexOf('sample01.html') > -1) {
           return caches.match(FALLBACK_PAGE);
-        } else {
+        }
+        if (pathname.indexOf('.html') > -1) {
           return caches.match(FALLBACK_PAGE2);
         }
       }
