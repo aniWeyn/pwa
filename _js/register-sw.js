@@ -1,5 +1,5 @@
 const SERVICE_WORKER = './sw.js';
-// Register the service worker on every page.
+// Register the service worker on every page if there are multiple entry points to app.
 // Promised based.
 if ('serviceWorker' in navigator) {
     console.log("Registering...");

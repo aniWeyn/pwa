@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway'>
-	<link rel='stylesheet' href='css/w3.css'>
-	<link rel='stylesheet' href='css/course.css'>
+	<link rel='stylesheet' href='../_css/w3.css'>
+	<link rel='stylesheet' href='../_css/pwa-course.css'>
 </head>
 
 <body>
@@ -95,10 +95,10 @@
 													// P108 Tal
 													// https://javascript.info/indexeddb#searching-by-any-field-with-an-index
 													if (result[i].title.rendered.indexOf('BLUE') > -1) {
-														outputData += result[i].id + ": " + result[i].title.rendered
-														outputData += ": " + result[i].authorName.toUpperCase() + "</b>";
+														outputData += "<h2>" + result[i].id + ": " + result[i].title.rendered
+														outputData += " by " + result[i].authorName.toUpperCase() + "</h2>";
 														//outputData += " Title: " + result[i].title.rendered;  
-														outputData += "<br>";
+														//outputData += "<br>";
 													}
 
 												}

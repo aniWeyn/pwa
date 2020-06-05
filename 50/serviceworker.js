@@ -18,6 +18,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("message", event => {
+    console.log(event);
     const message = event.data;
     caches.open("UPDATE-CACHE")
         .then(function (cache) {
@@ -31,11 +32,11 @@ self.addEventListener("message", event => {
 });
 
 function alertPagesUpdate() {
-    clients.matchAll({
+    self.clients.matchAll({
         includeUncontrolled: false,
         type: "window"
     }).then(clients => {
-        clients.forEach(client => {
+        self.clients.forEach(client => {
             const clientId = client.id;
             const type = client.type;
             const url = client.url;

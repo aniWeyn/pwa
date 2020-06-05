@@ -8,7 +8,7 @@ var version = "42";
 var FALLBACK_PAGE = "fallback.html";
 
 // If not using ignore:querySearch then use this fallback in catch for article.php?id=XXXX
-//var ARTICLE_FALLBACK_PAGE = "article.php"; // necessary for article.php?id=xxxx
+// var ARTICLE_FALLBACK_PAGE = "article.php"; // necessary for article.php?id=xxxx
 
 console.log("+++ VERSION " + version + " +++");
 var staticLocalCacheName = 'PRECACHE-V' + version;

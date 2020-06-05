@@ -97,7 +97,7 @@ self.addEventListener('fetch', function (event) {
       }
     })
     .catch(function () { // catch occurs if failure occurs
-      // If both fail, show a generic fallback:
+      // If both fail, show a generic fallback for html pages in this example:
       console.log("[CATCH] " + event.request.url);
       if (event.request.url.indexOf('.html') > -1) {
         return caches.match(FALLBACK_PAGE);

@@ -13,6 +13,7 @@ if ('serviceWorker' in navigator) {
 function sendMessageToSW(message) {
     if (navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage(message);
+        console.log("SEND MESSAGE TO SW");
     } else {
         console.log("There is no SW controlling this page");
     }
