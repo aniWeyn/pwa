@@ -1,8 +1,8 @@
 var version = '23';
 
 // Set fallback page. We can have several and select acordingly in fetch>catch code at bottom of file.
-var FALLBACK_PAGE = 'fallback.html';
-
+var FALLBACK_PAGE = 'fallback.html'; // grey background
+var FALLBACK_PAGE2 = 'fallback2.html'; //white background
 // If not using ignore:querySearch then use this fallback in catch for article.php?id=XXXX
 //var ARTICLE_FALLBACK_PAGE = "article.php"; // necessary for article.php?id=xxxx
 
@@ -20,6 +20,7 @@ var localAssets = [
   './', // for when not page specified, we need the base url
   './index.html',
   './fallback.html',
+  './fallback2.html',
   '../_images/wppwa.png',
   '../_css/w3.css',
   '../_css/pwa-course.css',
@@ -120,7 +121,11 @@ self.addEventListener('fetch', function (event) {
         console.log("!!!!!!!!!!!!!");
         console.log("         ");
         console.log("         ");
-        return caches.match(FALLBACK_PAGE);
+        if (pathname.indexOf('sample01.html') > -1) {
+          return caches.match(FALLBACK_PAGE);
+        } else {
+          return caches.match(FALLBACK_PAGE2);
+        }
       }
     })
   );
