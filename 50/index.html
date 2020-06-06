@@ -36,14 +36,11 @@
   <meta name="msapplication-square150x150logo" content="../_images-manifest/icons/ms-icon-150x150.png">
   <meta name="msapplication-square310x310logo" content="../_images-manifest/icons/ms-icon-310x310.png">
   <!-- cross browser omitted for intermiary lessons -->
-  <title>42 PWA</title>
+  <title>50 PWA - FINAL VERSION</title>
 </head>
 
 <body>
-  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
-  <script src="../_js/style-offline.js"></script>
-  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
-  <script src="../_js/gone-offline.js"></script>
+
   <!-- REGISTER SERVICE WORKER -->
   <script src="../_js/register-sw.js"></script>
   <nav>
@@ -70,8 +67,18 @@
             <button id="notifications" class="w3-button w3-blue w3-medium">ENABLE NOTIFICATIONS</button>
             <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
           </div>
-          <h3>42 FORM SYNC</h3>
-          <p>We now have a message that is sent from SW to page if tab is open.</p>
+          <h3>50 FINAL VERSION</h3>
+          <p>Add to Homescreen installation.</p>
+          <p>Enable Notifications</p>
+          <p>Service Worker with CacheAndNetworkThenStoreOrFallback strategy.</p>
+          <p>Use of Cache API to store pages initially and dynamically.</p>
+          <p>Offline capability for cached pages.</p>
+          <p>Graceful FALLBACK page for form.html</p>
+          <p>Graceful generic FALLBACK page for all other html pages.</p>
+          <p>IndexedDB to store data in broswer's own database.</p>
+          <p>BackgroundSync to save form data and POST when back online.</p>
+          <p>Two way messaging between Page and Service Worker.</p>
+
           <div id="messages"></div>
           <div id="usage"></div>
         </div>
@@ -103,8 +110,8 @@
   <script src="../_js/idb-fn.js"></script>
   <!-- REQEUST NOTIFICATIONS PERMISSION -->
   <script src="../_js/request-notifications-permission.js"></script>
-  <!-- CAPTURE ADD TO HOMESCREEN EVENT -->
-  <script src="../_js/deferrred-prompt.js"></script>
+  
+
   <!-- We now load KB, Contacts and Calendar so that user has all these on first page visit.
     This is for demo purposes but it means the device is now completely local and can 
     function fully off line. 
@@ -220,6 +227,12 @@
       <p>PWA WORKSHOP - &copy; Craig West 2020</p>
     </div>
   </footer>
+    <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+    <script src="../_js/style-offline.js"></script>
+    <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+    <script src="../_js/gone-offline.js"></script>
+    <!-- CAPTURE ADD TO HOMESCREEN EVENT -->
+    <script src="../_js/deferrred-prompt.js"></script>
 </body>
 
 </html>

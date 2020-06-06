@@ -10,9 +10,7 @@
   <link rel="manifest" href="./manifest.json">
   <!-- cross browser omitted for intermiary lessons -->
   <title>42 ARTICLE</title>
-
 </head>
-
 <body>
   <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
   <script src="../_js/style-offline.js"></script>
@@ -57,15 +55,11 @@
   <!-- IndexedDB UTILITY FUNCTIONS -->
   <script src="../_js/idb-fn.js"></script>
   <!-- REQEUST NOTIFICATIONS PERMISSION -->
-
-
-
   <!-- LOAD ARTICLE -->
   <script>
     let urlParams = new URLSearchParams(window.location.search); //?id=22&name=dddd
     console.log(urlParams.get('id'));
     let id = parseInt(urlParams.get('id'), 10); // fails without parseInt as idb-fn.js does not recognise id
-
     getData("wpPOSTS", id)
       .then(function (data) {
         var output = "";
@@ -74,16 +68,17 @@
         output += "<h2>Article number: " + data.id + "</h2>"
         output += "<h2>Title: <b>" + data.title + "</b></h2>"
         output += "<p>" + data.body + "</p><br>";
-
         document.getElementById("mainContent").innerHTML = output;
       })
   </script>
-
-<footer>
-  <div class="w3-container w3-blue w3-center footer">
-    <p>PWA WORKSHOP - &copy; Craig West 2020</p>
-  </div>
-</footer>
-
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
 </body>
 </html>

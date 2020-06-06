@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>42 ARTICLES</title>
+</head>
+<body>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a>
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="w3-container">
+      <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+      <header class="w3-container">
+        <div id="status"></div>
+        <br>
+      </header>
+      <div class="w3-card-4" style="margin:0 auto;max-width:1000px">
+        <div style="padding:30px;">
+          <div id="mainContent"></div>
+        </div>
+      </div>
+      <div style="height:40px;"></div>
+    </div>
+  </main>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <!-- POLYFILLS FOR PROMISES AND FETCCH -->
+  <script src="../_js/promise.js"></script>
+  <script src="../_js/fetch.js"></script>
+  <!-- IndexedDB LIBRARY -->
+  <script src="../_js/idb.js"></script>
+  <!-- IndexedDB UTILITY FUNCTIONS -->
+  <script src="../_js/idb-fn.js"></script>
+  <!-- REQEUST NOTIFICATIONS PERMISSION -->
+  <script>
+    readAllData("wpPOSTS")
+      .then(
+        function (response) {
+          console.log("<= POSTS =>");
+          console.log(response);
+          console.log("There are " + response.length + ' posts.');
+          console.log("<= POSTS =>");
+          var output = "<p>There are " + response.length + " saved articles.</h2>";
+          var articleURL = "";
+          // loop through all posts
+          for (var i = 0; i < response.length; i++) {
+            //articleURL = "article.php?id=" + i;
+            articleURL = "article.html?id=" + response[i].id;
+            output += "<p>" + (i + 1) + ". Article Number: " + response[i].id + "</p>";
+            output += "<p><a href='" + articleURL + "'>" + response[i].title + "</a></p>";
+          }
+          // output posts to page
+          document.getElementById("mainContent").innerHTML = output;
+        }
+      )
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+</body>
+</html>

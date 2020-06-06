@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0, user-scalable=0">
+  <meta name="Description" content="PWA WORKSHOP">
+  <meta name="Description" content="Author: Craig West">
+  <link type="text/css" href="../_css/w3.css" rel="stylesheet">
+  <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json">
+  <!-- cross browser omitted for intermiary lessons -->
+  <title>42 CONTACTS</title>
+  <style>
+    .card {
+      border: 2px solid orange;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 5px;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <!-- REGISTER SERVICE WORKER -->
+  <script src="../_js/register-sw.js"></script>
+  <nav>
+    <div class="w3-container w3-blue header">
+      <img src="../_images/wppwa.png" style="width:20px;height:20px;" alt="icon image">
+      <span style="margin-left:10px;">
+        <a href="index.html">HOME</a>&nbsp;&nbsp;
+        <a href="articles.html">POSTS</a>&nbsp; &nbsp;
+        <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
+        <a href="form.html">FORM</a>
+      </span>
+    </div>
+  </nav>
+  <main>
+    <div class="container">
+      <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+      <header class="w3-container">
+        <div id="status"></div>
+        <br>
+      </header>
+      <div id="total"></div>
+      <div id="mainContent"></div>
+    </div>
+  </main>
+  <!-- Include dexie.js -->
+  <script src="../_js/dexie.js"></script>
+  <script>
+    let output = "";
+    // Define your database
+    const db = new Dexie("wpCONTACTS");
+    let people = [];
+    db.version(1).stores({
+      contacts: 'firstName, lastName, telMob, email' // select which fields to access
+    });
+    const main = document.getElementById("mainContent");
+    db.contacts.each(function (contact) {
+      output += '<div class="card" ><h2>' + contact.firstName + ' ' + contact.lastName + '</h2>';
+      output += contact.email + '<br>';
+      output += contact.telMob + '<br></div>'
+      main.innerHTML = output;
+      people.push(contact.email)
+    }).then(function () {
+      console.log("PEOPLE ARRAY");
+      console.log(people);
+    });
+    const total = document.getElementById("total");
+    let totalContacts = 0;
+    db.contacts.count(function (val) {
+      console.log(val);
+      //alert(val);
+      total.innerHTML =
+        `<div class="card" >
+          <h1>There are ${val} contacts</h1>
+          <h3><b>Using dexie.js library</b></h3>
+          <h3><b><a href="https://randomuser.me" target="_blank">randomuser.me</a> api</b></h3>
+        </div>`;
+    })
+  </script>
+  <footer>
+    <div class="w3-container w3-blue w3-center footer">
+      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+    </div>
+  </footer>
+  <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
+  <script src="../_js/style-offline.js"></script>
+  <!-- RESPOND TO CHANGE IN ONLINE?OFFLINE -->
+  <script src="../_js/gone-offline.js"></script>
+</body>
+</html>
