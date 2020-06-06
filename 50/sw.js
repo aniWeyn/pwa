@@ -187,7 +187,7 @@ self.addEventListener('sync', function (event) {
       body: 'Your form has been sent to us..\nWe will contact you shortly. :)'
     };
     self.registration.showNotification(title, options);
-    sendMessage(`<div style="font-size:22px;font-weight:bold; color: green;"--->--->--->---> FORM SENT...</div>`);
+    sendMessage(`<div style="font-size:22px;font-weight:bold;color:green;"--->--->--->---> FORM SENT...</div>`);
   }
 });
 //COMMUNICATION TO AND FROM PAGE/SW
