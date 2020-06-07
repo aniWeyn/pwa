@@ -86,7 +86,7 @@
                             const sw = document.getElementById('sw');
                             sw.innerHTML = 'message from service worker goes here';
 
-                            // add an event listener for messge froim SW
+                            // add an event listener for messge from SW
                             navigator.serviceWorker.addEventListener("message", function(event) {
                                 sw.innerHTML += event.data;
                             })
@@ -122,12 +122,12 @@
                                                 "FORM DATA SAVED AND WILL BE SENT WHEN BACK ONLINE";
                                             output.style.border = '2px solid red';
                                         } else {
-                                            const output = document.getElementById('output');
-                                            output.innerHTML =
-                                                "FORM DATA SENT (go to message sent page...)";
-                                            output.style.border = '2px solid green';
+                                            // Handle form will have been sent...
                                         }
                                     });
+                                } else {
+                                    // No SW or SYNC in broswer so send form;
+                                    // SEND form as usual.
                                 }
                             });
                         </script>

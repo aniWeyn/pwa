@@ -76,7 +76,7 @@
                             const sw = document.getElementById('sw');
                             sw.innerHTML = 'message from service worker goes here';
 
-                            // add an event listener for messge froim SW
+                            // add an event listener for messge from SW
                             navigator.serviceWorker.addEventListener("message", function(event) {
                                 sw.innerHTML += event.data;
                             })
@@ -90,11 +90,15 @@
                                     subject: document.getElementById('subject').value,
                                     message: document.getElementById('message').value,
                                 };
+
+                                // SET UP of sync event that will handle form
+                                // 
                                 if ('serviceWorker' in navigator && 'SyncManager' in window) {
                                     console.log("SYNC MANAGER AVAILABLE");
                                     // serviceWorker registered at top of page       
                                     navigator.serviceWorker.ready.then(function (swRegistration) {
                                         console.log("register sync SEND");
+                                        // REGISTER SYNC EVENT
                                         swRegistration.sync.register('SEND');
                                         //check localforage loaded
                                         //console.log('localforage is: ', localforage);
@@ -102,6 +106,8 @@
                                         console.log(
                                             "Form has been saved as you are offline - will be sent once connectivty is restored"
                                             )
+                                        // STORE FORM DATA in IndexedDB using LocalForage library to show
+                                        // another library.
                                         localforage.setItem('FORM-DATA', formData).then(function (
                                         value) {}).catch(function (err) {});
                                         console.log("Email data stored...");
@@ -112,6 +118,8 @@
                                                 "FORM DATA SAVED AND WILL BE SENT WHEN BACK ONLINE";
                                             output.style.border = '2px solid red';
                                         } else {
+                                            // TO DO
+                                            // post form as we are online
                                             const output = document.getElementById('output');
                                             output.innerHTML =
                                                 "FORM DATA SENT (go to message sent page...)";

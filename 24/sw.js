@@ -81,16 +81,19 @@ self.addEventListener('activate', function (event) {
 	// ++++++++++++++++
 
 	event.waitUntil(
+
 		caches.keys()
 		.then(function (keyList) {
+			console.log("!!! Clearing old caches");
+			// remove previous version caches where current version != current version
 			return Promise.all(keyList.map(function (key) {
+				console.log(key) // versions of cache
 				if (key !== staticLocalCacheName && key !== staticRemoteCacheName && key !== dynamicCacheName) {
-					console.log('[Service Worker] Removing old cache.', key);
+					console.log(`[Service Worker] Current cache V${version} - Removing old cache ${key}`);
 					return caches.delete(key);
 				}
 			}));
-		})
-	);
+		}));
 	return self.clients.claim();
 
 	// with skipWaiting ensures all tabs/pages have new sw

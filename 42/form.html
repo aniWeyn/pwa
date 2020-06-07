@@ -84,12 +84,8 @@
                         <script src="../_js/localforage.min.js"></script>
                         <script>
                             const sw = document.getElementById('sw');
-                            sw.innerHTML = 'message from service worker goes here: ';
-
-                            // add an event listener for messge froim SW
-                            navigator.serviceWorker.addEventListener("message", function(event) {
-                                sw.innerHTML += event.data;
-                            })
+                            sw.innerHTML = 'message from service worker goes here';
+                            
                             // form send event listener
                             document.getElementById('submit').addEventListener('click', function (event) {
                                 event.preventDefault();
@@ -101,10 +97,15 @@
                                     message: document.getElementById('message').value,
                                 };
                                 if ('serviceWorker' in navigator && 'SyncManager' in window) {
+                                    // add an event listener for messge from SW
+                                    navigator.serviceWorker.addEventListener("message", function(event) {
+                                        sw.innerHTML += event.data;
+                                    })
                                     console.log("SYNC MANAGER AVAILABLE");
                                     // serviceWorker registered at top of page       
                                     navigator.serviceWorker.ready.then(function (swRegistration) {
                                         console.log("register sync SEND");
+                                        // REGISTER SYNC EVENT WITH TAG = SEND
                                         swRegistration.sync.register('SEND');
                                         //check localforage loaded
                                         //console.log('localforage is: ', localforage);
@@ -112,22 +113,25 @@
                                         console.log(
                                             "Form has been saved as you are offline - will be sent once connectivty is restored"
                                             )
+                                        // Use LocalForage to store data in IndexedDB
                                         localforage.setItem('FORM-DATA', formData).then(function (
                                         value) {}).catch(function (err) {});
                                         console.log("Email data stored...");
-                                        // if online it will be sent immediately by sync event    
+                                        // if online it will be sent immediately by sync event 
+                                        // if offkine notify user...   
                                         if (!navigator.onLine) {
                                             const output = document.getElementById('output');
                                             output.innerHTML =
                                                 "FORM DATA SAVED AND WILL BE SENT WHEN BACK ONLINE";
                                             output.style.border = '2px solid red';
                                         } else {
-                                            const output = document.getElementById('output');
-                                            output.innerHTML =
-                                                "FORM DATA SENT (go to message sent page...)";
-                                            output.style.border = '2px solid green';
+                                            // If online SYNC event will send form
+                                            // Handle form will have been sent...
                                         }
                                     });
+                                } else { 
+                                    // No SW or SYNC in browser so send form;
+                                    // SEND form as usual.
                                 }
                             });
                         </script>

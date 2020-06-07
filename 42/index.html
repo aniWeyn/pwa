@@ -71,7 +71,11 @@
             <button id="add" class="w3-button w3-blue w3-medium">ADD TO HOMESCREEN</button>
           </div>
           <h3>42 FORM SYNC</h3>
-          <p>We now have a message that is sent from SW to page if tab is open.</p>
+          <p>We use BackgroundSync to handle form data when offline.</p>
+          <p>BackgroundSync listens for the SYNC event which occurs when the app is back online.</p>
+          <p>We can put tasks into the event we have made and know the SW will monitor for ONLINE and then carry it out.</p>
+          <p>We register a BackgroundSync event with a name of our choosing, (SEND in our case), and save data to IndexedDB using LocalForage. This shows us another library we can use. </p>
+          <p>BackgroundSync is 'back online sync' If online, all events will occur but if offline, the SW will wait till back online to complete the task.</p>
           <div id="messages"></div>
           <div id="usage"></div>
         </div>
