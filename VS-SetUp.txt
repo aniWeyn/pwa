@@ -1,0 +1,18 @@
+Extensions:
+
+Live Server
+Mokai Crete theme
+Bracket Pair Colorizer
+
+In CTL SHIFT P > Preferences: Open Settings (JSON)
+
+Add/edit these configurations to get tree effect in Explorer
+
+    "workbench.colorCustomizations": {
+        "tree.indentGuidesStroke": "#2196f3",
+        "tab.activeBackground": "#2196f3",
+        "statusBar.background": "#ffa500",
+        "tab.inactiveBackground": "#000",
+        "tab.border": "#fff",
+    },
+    "workbench.tree.indent": 25,
