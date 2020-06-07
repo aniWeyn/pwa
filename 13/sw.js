@@ -10,3 +10,8 @@ self.addEventListener('activate', function (event) {
     console.log('[Service Worker] Activating Service Worker....', event);
 
 });
+
+//cacheThenNetworkAndStoreThenFallback
+self.addEventListener('fetch', function (event) {
+    console.log("Fetch event...", event.request.url);
+});

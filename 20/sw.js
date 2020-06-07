@@ -1,4 +1,4 @@
-const version = 1;
+const version = 20;
 self.addEventListener("install", event => {
   console.log(`SW Version ${version} installed.`);
 });
