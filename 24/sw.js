@@ -76,12 +76,11 @@ const limitCacheSize = (name, size) => { //!size is number of entries not file s
 self.addEventListener('activate', function (event) {
 	console.log('+++ service worker activation +++');
 	console.log('[Service Worker] Activating Service Worker  ' + version + ' ....', event);
+
 	// ++++++++++++++++
 	// clear old caches
 	// ++++++++++++++++
-
 	event.waitUntil(
-
 		caches.keys()
 		.then(function (keyList) {
 			console.log("!!! Clearing old caches");
@@ -126,7 +125,7 @@ self.addEventListener('fetch', function (event) {
 								// and can only be consumed once so we make a clone/copy.
 
 								// ++++++++ limit Cache Size ++++++++++
-								limitCacheSize(dynamicCacheName, 4);
+								// limitCacheSize(dynamicCacheName, 4);
 								// ++++++++++++++++++++++++++++++++++++
 								return networkResponse;
 							});
