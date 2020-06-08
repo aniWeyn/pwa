@@ -8,8 +8,10 @@
 
 // https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network
 
-// fetch event
-// Cache OR Network
+
+////////////////////////////////////////////////////////
+// Cache OR Network "Cache Then Network"
+
 self.addEventListener('fetch', function (event) {
     console.log('fetch event', event);
     event.respondWith(
@@ -22,8 +24,9 @@ self.addEventListener('fetch', function (event) {
     );
 });
 
-// fetch event
+////////////////////////////////////////////////////////
 // Cache OR (Network AND make and cache copy)
+
 self.addEventListener('fetch', event => {
     //console.log('fetch event', event);
     event.respondWith(
@@ -45,10 +48,11 @@ self.addEventListener('fetch', event => {
 });
 
 
-// fetch event
+////////////////////////////////////////////////////////
 // Cache OR (Network make and cache copy OR generic fallback)
 // As Cache then Network and Store but if the network request fails
 // then CATCH the error and return the fallback page.
+
 self.addEventListener('fetch', event => {
     const parsedUrl = new URL(event.request.url);
     //console.log('fetch event', event);
@@ -62,7 +66,9 @@ self.addEventListener('fetch', event => {
                         return fetchRes;
                     })
                 });
-        }).catch(() => {
+        })
+
+        .catch(() => {
             // can have different fallbacks depending on file type.
             if (parsedUrl.contains('.html')) {
                 caches.match('fallback.html')
@@ -72,16 +78,22 @@ self.addEventListener('fetch', event => {
     );
 });
 
-// Mix and match cache
-// We have access to the exact URL from event.request.url
-// We can then pick a caching strategy based on the URL
-// JS indexOf, startsWith, includes or RegEx
+////////////////////////////////////////////////////////
+// Cache THEN (Network make and cache copy OR generic fallback)
+// "Stale while revalidate"
 
-// https://www.w3schools.com/jsref/jsref_includes.asp
-// https://www.w3schools.com/jsref/jsref_indexof.asp
-// https://www.w3schools.com/jsref/jsref_startswith.asp
-// https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+self.addEventListener('fetch', (event) => {
+    event.respondWith(async function () {
+        const cache = await caches.open(dynamicCacheName);
+        const cachedResponse = await cache.match(event.request);
+        const networkResponsePromise = fetch(event.request);
 
-// var str = "The best things in life are free";
-// var patt = new RegExp("e");
-// var res = patt.test(str);
+        event.waitUntil(async function () {
+            const networkResponse = await networkResponsePromise;
+            await cache.put(event.request, networkResponse.clone());
+        }());
+
+        // Returned the cached response if we have one, otherwise return the network response.
+        return cachedResponse || networkResponsePromise;
+    }());
+});
