@@ -230,3 +230,9 @@ self.addEventListener("message", event => {
   console.log("----- SW receiving messge from PAGE -----");
   console.log("");
 });
+
+//  listen on page for new service worker to take over
+// navigator.serviceWorker.addEventListener("controllerchange", async function onController() {
+//   svcworker = navigator.serviceWorker.controller;
+//   console.log("Change in SW detected");
+// });
