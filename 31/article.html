@@ -9,8 +9,10 @@
   <link type="text/css" href="../_css/pwa-course.css" rel="stylesheet">
   <link rel="manifest" href="./manifest.json">
   <!-- cross browser omitted for intermiary lessons -->
-  <title>31 ARTILCE</title>
+  <title>42 ARTICLE</title>
+
 </head>
+
 <body>
   <!-- MAINTAIN OFFLINE STYLE WHEN NAVIGATING OFFLINE -->
   <script src="../_js/style-offline.js"></script>
@@ -25,21 +27,26 @@
         <a href="index.html">HOME</a>&nbsp;&nbsp;
         <a href="articles.html">POSTS</a>&nbsp; &nbsp;
         <a href="contacts.html">CONTACTS</a>&nbsp; &nbsp;
-        <!-- <a href="form.html">FORM</a> -->
+        <a href="form.html">FORM</a>
       </span>
     </div>
   </nav>
   <main>
-    <div class="w3-main" style="margin:10px auto;max-width:1200px;">
-      <!-- DISPLAY ONLINE/OFFLINE STATUS -->
-      <div id="status"></div>
-      <br>
-   
-        <h2><a href="articles.html">BACK TO ARTICLES</a></h2>
-        <div id="mainContent"></div>
- 
-    <br>
-    </div>
+    <div class="w3-main" style="margin:10px auto;max-width:1000px;">
+      <div style="margin: 0 10px 0 10px;">
+        <!-- DISPLAY ONLINE/OFFLINE STATUS -->
+        <header class="w3-container">
+          <div id="status"></div>
+          <br>
+        </header>
+        <div class="w3-card-4" style="padding:40px;font-size:1.0rem; word-break: break-all;">
+          <h2>
+            <a href="articles.html">BACK TO ARTICLES</a>
+          </h2>
+          <div id="mainContent"></div>
+        </div>
+        <br>
+      </div>
     </div>
   </main>
   <!-- POLYFILLS FOR PROMISES AND FETCCH -->
@@ -50,26 +57,33 @@
   <!-- IndexedDB UTILITY FUNCTIONS -->
   <script src="../_js/idb-fn.js"></script>
   <!-- REQEUST NOTIFICATIONS PERMISSION -->
+
+
+
   <!-- LOAD ARTICLE -->
   <script>
     let urlParams = new URLSearchParams(window.location.search); //?id=22&name=dddd
     console.log(urlParams.get('id'));
     let id = parseInt(urlParams.get('id'), 10); // fails without parseInt as idb-fn.js does not recognise id
+
     getData("wpPOSTS", id)
       .then(function (data) {
-        var output = "Posts";
+        var output = "";
         //console.log(data);
         //console.log("ID is " + data.id + "and title is " + data.title + " with content " + data.body);
         output += "<h2>Article number: " + data.id + "</h2>"
         output += "<h2>Title: <b>" + data.title + "</b></h2>"
         output += "<p>" + data.body + "</p><br>";
+
         document.getElementById("mainContent").innerHTML = output;
       })
   </script>
-  <footer>
-    <div class="w3-container w3-blue w3-center footer">
-      <p>PWA WORKSHOP - &copy; Craig West 2020</p>
-    </div>
-  </footer>
+
+<footer>
+  <div class="w3-container w3-blue w3-center footer">
+    <p>PWA WORKSHOP - &copy; Craig West 2020</p>
+  </div>
+</footer>
+<script src="../_js/deferrred-prompt.js"></script>
 </body>
 </html>
