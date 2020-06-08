@@ -81,6 +81,7 @@ self.addEventListener('fetch', event => {
 ////////////////////////////////////////////////////////
 // Cache THEN (Network make and cache copy OR generic fallback)
 // "Stale while revalidate"
+// https://jakearchibald.com/2014/offline-cookbook/#stale-while-revalidate
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(async function () {
