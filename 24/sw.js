@@ -156,7 +156,7 @@ self.addEventListener('fetch', function (event) {
 				console.log("!!!!!!!!!!!!!");
 				console.log("         ");
 				console.log("         ");
-				if (pathname.indexOf('sample01.html') > -1) {
+				if (pathname.indexOf('form.html') > -1) {
 					return caches.match(FALLBACK_PAGE);
 				} else {
 					return caches.match(FALLBACK_PAGE2);

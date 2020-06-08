@@ -34,9 +34,7 @@
           <h1>22 Cache then Network strategy</h1>
           <p>More accurately Cache OR Network but it is know as the above.</p>
           <p>If offline and we request index.html the SW looks first in the LOCAL CACHE we created and if it is not there goes to the network.</p>
-          <div class="exercise" >
-            <p>EX: Make a change to index.html and do a soft refresh. You will see no change. A hard refresh bypasses SW and you will see the change.</p>
-          </div>
+          <p>skipWaiting commented out. We can see no effect when we edit index.html</p>
           <p>One can also clear SW by closing all tabs and open new tab, which will reload new SW and new index.html </p>
           <p>When ONLINE this will be very fast. When OFFLINE the page can still be rendered if it is in CACHE.</p>
           <p><a href="https://jakearchibald.com/2014/offline-cookbook/#cache-falling-back-to-network" target="_blank">Jake

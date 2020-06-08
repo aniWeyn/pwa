@@ -36,7 +36,7 @@ self.addEventListener('install', function (event) {
         //console.log('+++ caching REMOTE assets +++');
         cache.addAll(remoteAssets);
       }))
-    .then(self.skipWaiting()) // forces installation of new sw
+    //.then(self.skipWaiting()) // forces installation of new sw
     .catch(function (error) {
       console.log(error);
     })
