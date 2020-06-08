@@ -78,7 +78,8 @@ const limitCacheSize = (name, size) => {
 };
 self.addEventListener('activate', function (event) {
   console.log('+++ service worker activation +++');
-  console.log('[Service Worker] Activating Service Worker  ' + version + ' ....', event);
+  console.log("[Service Worker] Activating Service Worker  " + version + " ....", event);
+  console.log("[Service Worker] Sending message to PAGE to inform of SW activation.");
   // clear old caches
   // sendMessage(`ACTIVATE: SW Version: ${version - 2} now active...please refresh page`);
   alertPagesUpdate(`<h1 style="color:green;">SERVICE WORKER ACTIVATED Version: ${version}<h1>`);
