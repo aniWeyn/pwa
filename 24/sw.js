@@ -125,7 +125,7 @@ self.addEventListener('fetch', function (event) {
 								// and can only be consumed once so we make a clone/copy.
 
 								// ++++++++ limit Cache Size ++++++++++
-								limitCacheSize(dynamicCacheName, 4);
+								// limitCacheSize(dynamicCacheName, 4);
 								// ++++++++++++++++++++++++++++++++++++
 								return networkResponse;
 							});

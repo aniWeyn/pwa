@@ -154,6 +154,7 @@ self.addEventListener('sync', function (event) {
       body: 'Your form has been sent to us..\nWe will contact you shortly. :)'
     };
     self.registration.showNotification(title, options);
+    // postMessage API to send message to form
     sendMessage(`<div style="font-size:22px;font-weight:bold;color:green;"--->--->--->---> FORM SENT...</div>`);
   }
 });
