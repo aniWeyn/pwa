@@ -175,19 +175,15 @@ self.addEventListener('sync', function (event) {
     console.log(event);
     console.log("SEND SYNC TAG heard");
     console.log("Sending form data...");
-    // console.log("DELETE IndexedDB data...")
-    // localforage.removeItem('FORM-DATA').then(function () {
-    //   // Run this code once the key has been removed.
-    //   console.log('FROM-DATA is cleared!');
-    // }).catch(function (err) {
-    //   // This code runs if there were any errors
-    //   console.log(err);
-    // });
+    // TO DO
+    // GET DATA FROM INDEXEDDB - SEND - DELETE FROM INDEXEDDB
     const title = 'Form has been sent';
     const options = {
       body: 'Your form has been sent to us..\nWe will contact you shortly. :)'
     };
+    // SEND NOTIFICATION
     self.registration.showNotification(title, options);
+    // SEND MESSAGE TO WEB PAGE
     sendMessage(`<div style="font-size:22px;font-weight:bold;color:green;"--->--->--->---> FORM SENT...</div>`);
   }
 });
@@ -214,9 +210,9 @@ function alertPagesUpdate(msg) {
     type: "window"
   }).then(clients => {
     clients.forEach(client => {
-      const clientId = client.id;
-      const type = client.type;
-      const url = client.url;
+      // const clientId = client.id;
+      // const type = client.type;
+      // const url = client.url;
       client.postMessage(msg)
     })
   })
@@ -232,7 +228,7 @@ self.addEventListener("message", event => {
 });
 
 //  listen on page for new service worker to take over
-// navigator.serviceWorker.addEventListener("controllerchange", async function onController() {
+//  navigator.serviceWorker.addEventListener("controllerchange", async function onController() {
 //   svcworker = navigator.serviceWorker.controller;
 //   console.log("Change in SW detected");
 // });
